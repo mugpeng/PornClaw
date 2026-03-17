@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel hero">
+  <div>
+    <p class="eyebrow">Phase 1</p>
+    <h1>输入数据源，抓近期内容，聚合系列并推荐 Top 5</h1>
+    <p>演示地址可直接填写：<code>{{ demo_url }}</code></p>
+  </div>
+</section>
+<form method="post" action="/start" class="panel form-grid">
+  <label>
+    <span>数据源 URL</span>
+    <input type="text" name="source_url" value="{{ demo_url }}" required />
+  </label>
+  <label>
+    <span>自然语言偏好</span>
+    <input type="text" name="free_text_intent" placeholder="例如：最近一周，偏剧情，不要 dark，长篇优先" />
+  </label>
+  <div class="tag-columns">
+    <div>
+      <h3>喜欢标签</h3>
+      <div class="tag-grid">
+        {% for tag in tag_options %}
+        <label class="chip"><input type="checkbox" name="liked_tags" value="{{ tag }}" />{{ tag }}</label>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+      <h3>不喜欢标签</h3>
+      <div class="tag-grid">
+        {% for tag in tag_options %}
+        <label class="chip"><input type="checkbox" name="disliked_tags" value="{{ tag }}" />{{ tag }}</label>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <button class="primary-btn" type="submit">抓取并开始推荐</button>
+</form>
+{% endblock %}

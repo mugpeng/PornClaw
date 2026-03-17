@@ -1,0 +1,74 @@
+:root {
+  --bg: #f4efe7;
+  --panel: #fffaf2;
+  --ink: #231815;
+  --accent: #b14d2f;
+  --accent-soft: #e0b07d;
+  --line: #d9c8b0;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Georgia", "Noto Serif SC", serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(224,176,125,0.45), transparent 35%),
+    linear-gradient(180deg, #f7f1e8 0%, var(--bg) 100%);
+}
+.site-header, .page-shell { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+.site-header { padding: 2rem 0 1rem; }
+.brand { font-size: 2rem; color: var(--ink); text-decoration: none; font-weight: 700; }
+.subtitle { margin: 0.25rem 0 0; color: #6f5c50; }
+.page-shell { padding-bottom: 3rem; }
+.panel, .card {
+  background: rgba(255,250,242,0.92);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(90, 60, 40, 0.08);
+}
+.panel { padding: 1.5rem; margin-bottom: 1rem; }
+.hero h1 { margin: 0.5rem 0; font-size: clamp(2rem, 5vw, 3.4rem); }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin: 0; }
+.form-grid label { display: block; margin-bottom: 1rem; }
+input[type="text"] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.tag-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.tag-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip { padding: 0.45rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; }
+.primary-btn, .actions button, .inline-btn {
+  display: inline-block;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.8rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.inline-btn { margin-top: 1rem; }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.card { padding: 1rem; }
+.card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 14px; background: #eee; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.actions form { margin: 0; }
+.score-box pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  background: #f7efe4;
+  padding: 0.75rem;
+  border-radius: 12px;
+}
+.reason { min-height: 4.5rem; }
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2rem; }
+}

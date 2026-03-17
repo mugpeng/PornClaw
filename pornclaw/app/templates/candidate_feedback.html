@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>候选反馈</h1>
+  <p>先对少量系列给出 like / dislike / skip，补充首轮画像。</p>
+</section>
+<section class="card-grid">
+  {% for item in candidates %}
+  <article class="card">
+    {% if item.representative_cover %}
+    <img src="{{ item.representative_cover }}" alt="{{ item.series_name }}" />
+    {% endif %}
+    <h3>{{ item.series_name }}</h3>
+    <p>{{ item.tags|join(", ") }}</p>
+    <p>近 7 天更新 {{ item.update_count_7d }} 次</p>
+    <div class="actions">
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.id }}" />
+        <input type="hidden" name="feedback_type" value="like" />
+        <input type="hidden" name="next_path" value="/candidate-feedback/{{ session_id }}" />
+        <button type="submit">喜欢</button>
+      </form>
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.id }}" />
+        <input type="hidden" name="feedback_type" value="dislike" />
+        <input type="hidden" name="next_path" value="/candidate-feedback/{{ session_id }}" />
+        <button type="submit">不喜欢</button>
+      </form>
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.id }}" />
+        <input type="hidden" name="feedback_type" value="skip" />
+        <input type="hidden" name="next_path" value="/candidate-feedback/{{ session_id }}" />
+        <button type="submit">跳过</button>
+      </form>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+<a class="primary-btn inline-btn" href="/recommendations/{{ session_id }}">生成 Top 5 推荐</a>
+{% endblock %}

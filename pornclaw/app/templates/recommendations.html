@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>Top 5 系列推荐</h1>
+  <a class="inline-btn" href="/recommendations/{{ session_id }}">重新生成推荐</a>
+</section>
+<section class="card-grid">
+  {% for item in recommendations %}
+  <article class="card">
+    {% if item.cover_url %}
+    <img src="{{ item.cover_url }}" alt="{{ item.series_name }}" />
+    {% endif %}
+    <h3>{{ item.series_name }}</h3>
+    <p>{{ item.tags|join(", ") }}</p>
+    <p>最近更新时间：{{ item.latest_update_time or "未知" }}</p>
+    <p class="reason">{{ item.reason_text }}</p>
+    {% if item.source_urls %}
+    <p><a href="{{ item.source_urls[0] }}" target="_blank">源链接</a></p>
+    {% endif %}
+    <div class="score-box">
+      <strong>分数</strong>
+      <pre>{{ item.score_breakdown }}</pre>
+    </div>
+    <div class="actions">
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.series_id }}" />
+        <input type="hidden" name="feedback_type" value="more_like_this" />
+        <input type="hidden" name="next_path" value="/recommendations/{{ session_id }}" />
+        <button type="submit">喜欢这类</button>
+      </form>
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.series_id }}" />
+        <input type="hidden" name="feedback_type" value="less_like_this" />
+        <input type="hidden" name="next_path" value="/recommendations/{{ session_id }}" />
+        <button type="submit">少推这类</button>
+      </form>
+      <form method="post" action="/feedback/form">
+        <input type="hidden" name="session_id" value="{{ session_id }}" />
+        <input type="hidden" name="series_id" value="{{ item.series_id }}" />
+        <input type="hidden" name="feedback_type" value="dislike" />
+        <input type="hidden" name="next_path" value="/recommendations/{{ session_id }}" />
+        <button type="submit">不感兴趣</button>
+      </form>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
